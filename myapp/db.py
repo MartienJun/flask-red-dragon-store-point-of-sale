@@ -38,6 +38,12 @@ def init_db_command():
     click.echo('Initialized the database.')
 
 
+def init_app(app):
+    #Register database functions with the Flask app. This is called by the application factory.
+    app.teardown_appcontext(close_db) #note -app.teardown_appcontext()-
+    app.cli.add_command(init_db_command) #note -app.cli.add_command()-
+
+
 """
 Note:
 
