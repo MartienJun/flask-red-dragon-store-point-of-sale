@@ -3,11 +3,12 @@ DROP TABLE IF EXISTS barang;
 DROP TABLE IF EXISTS pembelian;
 
 CREATE TABLE user (
-    email TEXT PRIMARY KEY ASC NOT NULL,
+    id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    email TEXT NOT NULL,
     pass TEXT NOT NULL,
-    login_status BOOLEAN NOT NULL,
+    login_status BOOLEAN NOT NULL DEFAULT (false),
     nama TEXT NOT NULL,
-    role STRING (10) NOT NULL
+    role STRING (10) NOT NULL DEFAULT karyawan
 );
 
 CREATE TABLE barang (
