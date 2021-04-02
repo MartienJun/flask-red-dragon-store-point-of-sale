@@ -46,3 +46,29 @@ def register():
         flash(error) #note -flash()-
 
     return render_template('auth/register.html') #note -render_template()-
+
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        db = get_db()
+        error = None
+        user = db.execute('SELECT * FROM user WHERE email = ?', (email,)).fetchone()
+
+        if user is None:
+            error = 'Incorrect Email.'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect Password.'
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+
+        flash(error)
+
+    return render_template('auth/login.html')
+
+
