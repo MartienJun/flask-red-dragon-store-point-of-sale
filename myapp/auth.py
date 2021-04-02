@@ -13,6 +13,7 @@ from werkzeug.security import generate_password_hash
 
 from myapp.db import get_db
 
+"""Declare auth blueprint"""
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
@@ -102,3 +103,53 @@ def logout():
     return redirect(url_for('index'))
 
 
+"""
+Note:
+
+-@bp.routep-
+@bp.route associates the URL /register with the register view function. When Flask receives a 
+request to /auth/register, it will call the register view and use the return value as the response.
+
+
+-request.form-
+request.form is a special type of dict mapping submitted form keys and values. The user will input 
+their email and password.
+
+
+-db.execute-
+Execute query
+
+
+-fetchone()-
+fetchone() returns one row from the query. If the query returned no results, it returns None.
+
+
+-fetchall()-
+fetchall() is used, which returns a list of all results.
+
+
+-generate_password_hash()-
+generate_password_hash() is used to securely hash the password
+
+
+-db.commit()-
+db.commit() needs to be called afterwards to save the changes.
+
+
+-url_for()-
+url_for() generates the URL for the login view based on its name. This is preferable 
+to writing the URL directly as it allows you to change the URL later without changing all 
+code that links to it.
+
+
+-redirect()-
+redirect() generates a redirect response to the generated URL.
+
+
+-flash()-
+flash() stores messages that can be retrieved when rendering the template.
+
+
+-render_template()-
+render_template() will render a template containing the HTML
+"""
