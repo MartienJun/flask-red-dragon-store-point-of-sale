@@ -74,4 +74,25 @@ columns by name.
 close_db checks if a connection was created by checking if g.db was set. If the connection exists, 
 it is closed. Further down you will tell your application about the close_db function in the 
 application factory so that it is called after each request.
+
+
+-open_resource()-
+open_resource() opens a file relative to the flaskr package, which is useful since you won’t 
+necessarily know where that location is when deploying the application later. get_db returns a 
+database connection, which is used to execute the commands read from the file.
+
+
+-click.command()-
+click.command() defines a command line command called init-db that calls the init_db function and 
+shows a success message to the user. You can read Command Line Interface to learn more about writing 
+commands.
+
+
+-app.teardown_appcontext()-
+app.teardown_appcontext() tells Flask to call that function when cleaning up after returning 
+the response.
+
+
+-app.cli.add_command()-
+app.cli.add_command() adds a new command that can be called with the flask command.
 """
