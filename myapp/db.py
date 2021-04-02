@@ -83,7 +83,7 @@ application factory so that it is called after each request.
 
 
 -open_resource()-
-open_resource() opens a file relative to the flaskr package, which is useful since you won’t 
+open_resource() opens a file relative to the myapp package, which is useful since you won’t 
 necessarily know where that location is when deploying the application later. get_db returns a 
 database connection, which is used to execute the commands read from the file.
 
