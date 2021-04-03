@@ -49,12 +49,12 @@ def register():
         db = get_db()
         error = None
 
-        if not email:
+        if not nama:
+            error = 'Name is required.'
+        elif not email:
             error = 'Email is required.'
         elif not password:
             error = 'Password is required.'
-        elif not nama:
-            error = 'Name is required.'
         elif db.execute( #note -db.execute-
             'SELECT id FROM user WHERE email = ?', (email,)
         ).fetchone() is not None: #note -fetchone()-
