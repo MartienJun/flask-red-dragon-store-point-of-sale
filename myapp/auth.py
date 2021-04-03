@@ -43,7 +43,7 @@ def load_logged_in_user():
 @bp.route('/register', methods=('GET', 'POST')) #note -@bp.route-
 def register():
     if request.method == 'POST':
-        nama = request.form['name'] """Request the data from tag input with name = name"""
+        nama = request.form['name'] #Request the data from tag input with name = name
         email = request.form['email'] #note -request.form-
         password = request.form['password']
         db = get_db()
