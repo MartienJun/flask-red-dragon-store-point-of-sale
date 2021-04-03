@@ -43,9 +43,9 @@ def load_logged_in_user():
 @bp.route('/register', methods=('GET', 'POST')) #note -@bp.route-
 def register():
     if request.method == 'POST':
+        nama = request.form['name']
         email = request.form['email'] #note -request.form-
         password = request.form['password']
-        nama = request.form['name']
         db = get_db()
         error = None
 
@@ -63,7 +63,7 @@ def register():
         if error is None:
             db.execute(
                 'INSERT INTO user (email, password, nama) VALUES (?, ?, ?)',
-                (email, generate_password_hash(password)) #note -generate_password_hash()-
+                (nama, email, generate_password_hash(password)) #note -generate_password_hash()-
             )
             db.commit() #note -db.commit()-
             return redirect(url_for('auth.login')) #note -redirect()-, -url_for()-
