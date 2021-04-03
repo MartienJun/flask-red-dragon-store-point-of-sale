@@ -82,8 +82,14 @@ def login():
         error = None
         user = db.execute('SELECT * FROM user WHERE email = ?', (email,)).fetchone()
 
-        if user is None:
-            error = 'Incorrect Email.'
+        if not email:
+            error = 'Email is Empty.'
+        elif not password:
+            error = 'Password is Empty.'
+        elif db.execute( #note -db.execute-
+            'SELECT id FROM user WHERE email = ?', (email,)
+        ).fetchone() is not email: #note -fetchone()-
+            error = 'Email {} is incorrect.'.format(email)
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect Password.'
 
