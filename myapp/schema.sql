@@ -24,5 +24,5 @@ CREATE TABLE pembelian (
     tgl_pembelian DATETIME NOT NULL,
     id_produk REFERENCES barang (id_barang) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL,
     bayar INTEGER NOT NULL,
-    id_karyawan REFERENCES user (email) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL
+    id_karyawan REFERENCES user (id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL
 );
