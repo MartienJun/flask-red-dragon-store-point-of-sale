@@ -62,8 +62,8 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (email, password, nama) VALUES (?, ?, ?)',
-                (nama, email, generate_password_hash(password)) #note -generate_password_hash()-
+                'INSERT INTO user (email, password, login_status, nama, role) VALUES (?, ?, ?, ?, ?)',
+                (email, generate_password_hash(password), False, nama, 'karyawan') #note -generate_password_hash()-
             )
             db.commit() #note -db.commit()-
             return redirect(url_for('auth.login')) #note -redirect()-, -url_for()-
@@ -88,7 +88,7 @@ def login():
             error = 'Password is Empty.'
         elif db.execute( #note -db.execute-
             'SELECT id FROM user WHERE email = ?', (email,)
-        ).fetchone() is not email: #note -fetchone()-
+        ).fetchone() is None: #note -fetchone()-
             error = 'Email {} is incorrect.'.format(email)
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect Password.'
