@@ -103,3 +103,13 @@ def edit_product(id):
             return redirect(url_for('product.list_product'))
 
     return render_template('product/edit_product.html', products=products)
+
+
+@bp.route('/<int:id>/delete_product', methods=('POST', 'GET'))
+@login_required
+def delete_product(id):
+    get_products(id)
+    db = get_db()
+    db.execute('DELETE FROM barang WHERE id_barang = ?', (id,))
+    db.commit()
+    return redirect(url_for('product.list_product'))
