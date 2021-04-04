@@ -63,3 +63,11 @@ def add_purchase():
     return render_template('purchase/add_purchase.html', products=getAllProduct())
 
 
+@bp.route('/<int:id>/delete_purchase', methods=('POST', 'GET'))
+@login_required
+def delete_purchase(id):
+    get_purchase(id)
+    db = get_db()
+    db.execute('DELETE FROM pembelian WHERE id_pembelian = ?', (id,))
+    db.commit()
+    return redirect(url_for('purchase.index'))
