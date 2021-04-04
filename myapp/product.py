@@ -69,3 +69,37 @@ def add_product():
     return render_template('product/add_product.html')
 
 
+@bp.route('/<int:id>/edit_product', methods=('GET', 'POST'))
+@login_required
+def edit_product(id):
+    products = get_products(id)
+
+    if request.method == 'POST':
+        nama_barang = request.form['product_name']
+        tipe_barang = request.form['product_type']
+        harga = request.form['price']
+        stock = request.form['stock']
+        error = None
+
+        if not nama_barang:
+            error = 'Product name is required.'
+        elif not tipe_barang:
+            error = 'Product type is required.'
+        elif not harga:
+            error = 'Product price is required.'
+        elif not stock:
+            error = 'Product stock is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE barang SET nama_barang = ?, tipe_barang = ?, harga = ?, stock = ?'
+                ' WHERE id_barang = ?',
+                (nama_barang, tipe_barang, harga, stock, id)
+            )
+            db.commit()
+            return redirect(url_for('product.list_product'))
+
+    return render_template('product/edit_product.html', products=products)
