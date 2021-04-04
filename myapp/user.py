@@ -105,3 +105,11 @@ def edit_user(id):
     return render_template('user/edit_user.html', users=users)
 
 
+@bp.route('/<int:id>/delete_user', methods=('POST', 'GET'))
+@login_required
+def delete_user(id):
+    get_user(id)
+    db = get_db()
+    db.execute('DELETE FROM user WHERE id = ?', (id,))
+    db.commit()
+    return redirect(url_for('user.list_user'))
