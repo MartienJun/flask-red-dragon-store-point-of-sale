@@ -36,13 +36,12 @@
 
                     <div class="form-group">
                         <label for="product_type">Product Type</label>
-                        <select name="product_type" id="product_type" class="form-control">
-                            {% if value == products[tipe_barang]%}
-                            <option value="Laptop">Laptop</option>
-                            <option value="Gaming Laptop">Gaming Laptop</option>
-                            <option value="Tablet">Tablet</option>
-                            <option value="Smartphone">Smartphone</option> 
-                            {% endif %}   
+                        <select name="product_type" id="product_type" class="form-control" >
+                            <option value="Laptop" {% if products['tipe_barang'] == 'Laptop' %}selected{% endif %}>Laptop</option>
+                            <option value="Gaming Laptop" {% if products['tipe_barang'] == 'Gaming Laptop' %}selected{% endif %}>Gaming Laptop</option>
+                            <option value="Tablet" {% if products['tipe_barang'] == 'Tablet' %}selected{% endif %}>Tablet</option>
+                            <option value="Smartphone" {% if products['tipe_barang'] == 'Smartphone' %}selected{% endif %}>Smartphone</option>
+
                         </select>
                     </div>
                     
