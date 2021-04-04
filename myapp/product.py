@@ -32,6 +32,14 @@ def get_products(id, check_author=True):
     return products
 
 
+def getAllProduct():
+    products = get_db().execute(
+        'SELECT * FROM barang'
+    ).fetchall()
+
+    return products
+
+
 @bp.route('/add_product', methods=('GET', 'POST'))
 @login_required
 def add_product():
