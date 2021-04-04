@@ -8,7 +8,7 @@ CREATE TABLE user (
     password TEXT NOT NULL,
     login_status BOOLEAN NOT NULL DEFAULT (false),
     nama TEXT NOT NULL,
-    role STRING (10) NOT NULL DEFAULT karyawan
+    role STRING (10) NOT NULL DEFAULT Karyawan
 );
 
 CREATE TABLE barang (
