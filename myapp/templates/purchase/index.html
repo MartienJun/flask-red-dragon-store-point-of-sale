@@ -4,7 +4,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800">Purchase</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i>Print Receipt</a>
     </div>
@@ -17,20 +17,6 @@
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
                 <span class="text">Add Purchase</span>
-            </button>
-
-            <button class="btn btn-warning btn-icon-split mr-4">
-                <span class="icon text-white-50">
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                </span>
-                <span class="text">Edit</span>
-            </button>
-
-            <button class="btn btn-danger btn-icon-split mr-4">
-                <span class="icon text-white-50">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </span>
-                <span class="text">Delete</span>
             </button>
         </div>
     </div>
@@ -45,23 +31,27 @@
                 <table class="table table-bordered post" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-dark">
                         <tr>
-                            <th>Purchase ID</th>
-                            <th>Purchase Date</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Pay</th>
-                            <th>Employee</th>
+                            <th class="text-center">Purchase ID</th>
+                            <th class="text-center">Purchase Date</th>
+                            <th class="text-center">Product Name</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Pay</th>
+                            <th class="text-center">Employee</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for pembelian in pembelian %}
+                        {% for purchase in purchases %}
                         <tr>
-                            <td>{{ purchase[''] }}</td>
-                            <td>{{ purchase[''] }}</td>
-                            <td>{{ purchase[''] }}</td>
-                            <td>{{ purchase[''] }}</td>
-                            <td>{{ purchase[''] }}</td>
-                            <td>{{ purchase[''] }}</td>
+                            <td class="text-center">{{ purchase['id_pembelian'] }}</td>
+                            <td class="text-center">{{ purchase['tgl_pembelian'] }}</td>
+                            <td class="text-center">{{ purchase['nama_barang'] }}</td>
+                            <td class="text-center">{{ purchase['harga'] }}</td>
+                            <td class="text-center">{{ purchase['bayar'] }}</td>
+                            <td class="text-center">{{ purchase['nama'] }}</td>
+                            <td>
+
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
