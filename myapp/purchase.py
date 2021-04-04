@@ -9,6 +9,7 @@ from werkzeug.exceptions import abort
 
 from myapp.auth import login_required
 from myapp.product import *
+from myapp.user import *
 from myapp.db import get_db
 
 bp = Blueprint('purchase', __name__)
@@ -33,6 +34,24 @@ def get_purchase(id, check_author=True):
     ).fetchone()
 
     return purchases
+
+
+@bp.route('/receipt', methods=['POST'])
+@login_required
+def printReceipt():
+    purchase_id = request.form.get('checkPrint')
+    
+    purchase = get_db().execute(
+        'SELECT * FROM pembelian WHERE id_pembelian = ?',(purchase_id,)
+    ).fetchone()
+    
+    products = get_products(
+        get_db().execute(
+            'SELECT id_produk FROM pembelian WHERE id_pembelian = ?',(purchase_id,)
+        ).fetchone()[0]
+    )
+
+    return render_template('purchase/receipt.html', purchase=purchase, products=products)
 
 
 @bp.route('/add_purchase', methods=('GET', 'POST'))
