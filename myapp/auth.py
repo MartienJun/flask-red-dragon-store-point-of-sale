@@ -43,18 +43,18 @@ def load_logged_in_user():
 @bp.route('/register', methods=('GET', 'POST')) #note -@bp.route-
 def register():
     if request.method == 'POST':
+        nama = request.form['name'] #Request the data from tag input with name = name
         email = request.form['email'] #note -request.form-
         password = request.form['password']
-        nama = request.form['name']
         db = get_db()
         error = None
 
-        if not email:
+        if not nama:
+            error = 'Name is required.'
+        elif not email:
             error = 'Email is required.'
         elif not password:
             error = 'Password is required.'
-        elif not nama:
-            error = 'Name is required.'
         elif db.execute( #note -db.execute-
             'SELECT id FROM user WHERE email = ?', (email,)
         ).fetchone() is not None: #note -fetchone()-
@@ -62,8 +62,8 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (email, password, nama) VALUES (?, ?, ?)',
-                (email, generate_password_hash(password)) #note -generate_password_hash()-
+                'INSERT INTO user (email, password, login_status, nama, role) VALUES (?, ?, ?, ?, ?)',
+                (email, generate_password_hash(password), False, nama, 'karyawan') #note -generate_password_hash()-
             )
             db.commit() #note -db.commit()-
             return redirect(url_for('auth.login')) #note -redirect()-, -url_for()-
@@ -82,8 +82,14 @@ def login():
         error = None
         user = db.execute('SELECT * FROM user WHERE email = ?', (email,)).fetchone()
 
-        if user is None:
-            error = 'Incorrect Email.'
+        if not email:
+            error = 'Email is Empty.'
+        elif not password:
+            error = 'Password is Empty.'
+        elif db.execute( #note -db.execute-
+            'SELECT id FROM user WHERE email = ?', (email,)
+        ).fetchone() is None: #note -fetchone()-
+            error = 'Email {} is incorrect.'.format(email)
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect Password.'
 

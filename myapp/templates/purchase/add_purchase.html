@@ -1,0 +1,60 @@
+{% extends '_include/base.html' %}
+{% block content %}
+<header>
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+</header>
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Purchase</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 align-self-center">
+            <div class="p-5">
+                <form class="user" method="post">
+                    <div class="form-group">
+                        <label for="id_produk">Product</label>
+                        <select name="id_produk" id="id_produk" class="form-control">
+                            <option value="">Choose...</option>
+
+                            {% for product in products %}
+                            <option value="{{ product['id_barang'] }}">{{ product['nama_barang'] }} - Rp {{ product['harga'] }},00</option>
+                            {% endfor %}
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bayar">Pay</label>
+                        <input type="text" class="form-control form-control-user" id="bayar" 
+                            placeholder="" name="bayar">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_karyawan">Employee</label>
+                        <input type="text" class="form-control form-control-user" id=""
+                            placeholder="" name="" value="{{ g.user['nama'] }}"  disabled>
+
+                        <!-- Store user id data -->
+                        <input type="text" class="form-control form-control-user" id="id_karyawan"
+                            placeholder="" name="id_karyawan" value="{{ g.user['id'] }}"  hidden>
+                    </div>
+                    <button type="submit" value="Add purchase" class="btn btn-dark btn-user btn-block mt-5">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

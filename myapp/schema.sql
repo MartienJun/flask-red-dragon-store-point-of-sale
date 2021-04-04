@@ -8,7 +8,7 @@ CREATE TABLE user (
     password TEXT NOT NULL,
     login_status BOOLEAN NOT NULL DEFAULT (false),
     nama TEXT NOT NULL,
-    role STRING (10) NOT NULL DEFAULT karyawan
+    role STRING (10) NOT NULL DEFAULT Karyawan
 );
 
 CREATE TABLE barang (
@@ -21,8 +21,8 @@ CREATE TABLE barang (
 
 CREATE TABLE pembelian (
     id_pembelian INTEGER PRIMARY KEY ASC AUTOINCREMENT NOT NULL,
-    tgl_pembelian DATETIME NOT NULL,
+    tgl_pembelian TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_produk REFERENCES barang (id_barang) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL,
     bayar INTEGER NOT NULL,
-    id_karyawan REFERENCES user (email) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL
+    id_karyawan REFERENCES user (id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT NULL
 );
