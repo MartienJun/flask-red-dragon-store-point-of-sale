@@ -1,96 +1,98 @@
 {% extends '_include/base.html' %}
 {% block content %}
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Purchase</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i>Print Receipt</a>
-    </div>
-
-    <!-- Content Row -->
-    <div class="row mb-5">
-        <div class="col-xl-12 col-md-12 mb-12">
-            <a class="btn btn-dark btn-icon-split mr-4" href="{{ url_for('purchase.add_purchase') }}">
-                <span class="icon text-white-50">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-                <span class="text">Add Purchase</span>
-            </a>
+<form action="{{ url_for('purchase.printReceipt') }}" method="POST">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Purchase</h1>
+                <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i>
+                    Print Receipt
+                </button>
         </div>
-    </div>
 
-    <!-- DataTales -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-dark">Purchases</h6>
+        <!-- Content Row -->
+        <div class="row mb-5">
+            <div class="col-xl-12 col-md-12 mb-12">
+                <a class="btn btn-dark btn-icon-split mr-4" href="{{ url_for('purchase.add_purchase') }}">
+                    <span class="icon text-white-50"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                    <span class="text">Add Purchase</span>
+                </a>
+            </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered post" id="dataTable" width="100%" cellspacing="0">
-                    <thead class="text-dark">
-                        <tr>
-                            <th></th>
-                            <th class="text-center">Purchase ID</th>
-                            <th class="text-center">Purchase Date</th>
-                            <th class="text-center">Product Name</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Pay</th>
-                            <th class="text-center">Employee</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for purchase in purchases %}
-                        <tr>
-                            <td class="text-center"><input type="checkbox">Print</td>
-                            <td class="text-center">{{ purchase['id_pembelian'] }}</td>
-                            <td class="text-center">{{ purchase['tgl_pembelian'] }}</td>
-                            <td class="text-center">{{ purchase['nama_barang'] }}</td>
-                            <td class="text-center">{{ purchase['harga'] }}</td>
-                            <td class="text-center">{{ purchase['bayar'] }}</td>
-                            <td class="text-center">{{ purchase['nama'] }}</td>
-                            <td class="d-flex justify-content-center">
-                                <a class="btn btn-danger btn-icon-split mx-2" data-toggle="modal" data-target="#deleteProductModal">
-                                    <span class="icon text">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </span>
-                                </a>
 
-                                <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                                    <div class="modal-dialog  modal-dialog-centered" role="document" me>
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="">Delete this purchase?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
+        <!-- DataTales -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Purchases</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered post" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="text-dark">
+                            <tr>
+                                <th></th>
+                                <th class="text-center">Purchase ID</th>
+                                <th class="text-center">Purchase Date</th>
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Pay</th>
+                                <th class="text-center">Employee</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for purchase in purchases %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="checkbox" name="checkPrint" value="{{ purchase['id_pembelian'] }}">Print
+                                </td>
+                                <td class="text-center">{{ purchase['id_pembelian'] }}</td>
+                                <td class="text-center">{{ purchase['tgl_pembelian'] }}</td>
+                                <td class="text-center">{{ purchase['nama_barang'] }}</td>
+                                <td class="text-center">{{ purchase['harga'] }}</td>
+                                <td class="text-center">{{ purchase['bayar'] }}</td>
+                                <td class="text-center">{{ purchase['nama'] }}</td>
+                                <td class="d-flex justify-content-center">
+                                    <a class="btn btn-danger btn-icon-split mx-2" data-toggle="modal" data-target="#deleteProductModal">
+                                        <span class="icon text">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
 
-                                            <div class="modal-body">
-                                                <p>Deleted data canot be recovered.</p>
-                                            </div>
+                                    <!-- Delete Modal -->
+                                    <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                                        <div class="modal-dialog  modal-dialog-centered" role="document" me>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="">Delete this purchase?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
 
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                <form method="post">
-                                                    <a class="btn btn-danger" type="submit" href="{{ url_for('purchase.delete_purchase', id=purchase['id_pembelian']) }}">Delete</a>
-                                                </form>
+                                                <div class="modal-body">
+                                                    <p>Deleted data canot be recovered.</p>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                    <form method="post">
+                                                        <a class="btn btn-danger" type="submit" href="{{ url_for('purchase.delete_purchase', id=purchase['id_pembelian']) }}">Delete</a>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- End Delete Modal -->
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                    <!-- End Delete Modal -->
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
+</form>
 {% endblock %}
