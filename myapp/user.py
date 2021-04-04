@@ -6,6 +6,8 @@ from flask import render_template
 from flask import request
 from flask import url_for
 from werkzeug.exceptions import abort
+from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash
 
 from myapp.auth import login_required
 from myapp.db import get_db
