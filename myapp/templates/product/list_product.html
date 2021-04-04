@@ -5,8 +5,6 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Product</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i>Print Receipt</a>
     </div>
 
     <!-- Content Row -->
@@ -16,7 +14,7 @@
                 <span class="icon text-white-50">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
-                <span class="text">Add Purchase</span>
+                <span class="text">Add Product</span>
             </a>
         </div>
     </div>
@@ -31,28 +29,60 @@
                 <table class="table table-bordered post" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-dark">
                         <tr>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Product Type</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Setting</th>
+                            <th class="text-center">Product ID</th>
+                            <th class="text-center">Product Name</th>
+                            <th class="text-center">Product Type</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Stock</th>
+                            <th class="text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for product in products %}
                         <tr>
-                            <td>{{ product['id_barang'] }}</td>
-                            <td>{{ product['nama_barang'] }}</td>
-                            <td>{{ product['tipe_barang'] }}</td>
-                            <td>{{ product['harga'] }}</td>
-                            <td>{{ product['stock'] }}</td>
-                            <td>
-                                <a class="btn btn-warning btn-icon-split mr-4" href="{{ url_for('product.edit_product', id=product['id_barang']) }}">
+                            <td class="text-center">{{ product['id_barang'] }}</td>
+                            <td class="text-center">{{ product['nama_barang'] }}</td>
+                            <td class="text-center">{{ product['tipe_barang'] }}</td>
+                            <td class="text-center">{{ product['harga'] }}</td>
+                            <td class="text-center">{{ product['stock'] }}</td>
+                            <td class="d-flex justify-content-center">
+                                <a class="btn btn-warning btn-icon-split mx-2" href="{{ url_for('product.edit_product', id=product['id_barang']) }}">
                                     <span class="text">
                                         <i class="fa fa-wrench" aria-hidden="true"></i>
                                     </span>
                                 </a>
+
+                                <a class="btn btn-danger btn-icon-split mx-2" data-toggle="modal" data-target="#deleteProductModal">
+                                    <span class="icon text">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                                    <div class="modal-dialog  modal-dialog-centered" role="document" me>
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="">Delete this product?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>This product will be removed from database, but all purchase made from this product will not be removed.</p>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <form method="post">
+                                                    <a class="btn btn-danger" type="submit" href="{{ url_for('product.delete_product', id=product['id_barang']) }}">Delete</a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Delete Modal -->
                             </td>
                         </tr>
                         {% endfor %}
@@ -61,6 +91,5 @@
             </div>
         </div>
     </div>
-
 </div>
 {% endblock %}
