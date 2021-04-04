@@ -23,6 +23,15 @@ def list_product():
     return render_template('product/list_product.html', products=products)
 
 
+def get_products(id, check_author=True):
+    products = get_db().execute(
+        'SELECT * FROM barang'
+        ' WHERE id_barang = ?',(id,)
+    ).fetchone()
+
+    return products
+
+
 @bp.route('/add_product', methods=('GET', 'POST'))
 @login_required
 def add_product():
