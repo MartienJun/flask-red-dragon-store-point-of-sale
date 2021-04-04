@@ -13,3 +13,13 @@ from myapp.db import get_db
 bp = Blueprint('user', __name__)
 
 
+@bp.route('/list_user')
+def list_user():
+    db = get_db()
+    users = db.execute(
+        'SELECT * FROM user'
+        ' ORDER BY id ASC'
+    ).fetchall()
+    return render_template('user/list_user.html', users=users)
+
+
