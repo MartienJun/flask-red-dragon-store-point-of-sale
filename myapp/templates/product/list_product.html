@@ -12,26 +12,12 @@
     <!-- Content Row -->
     <div class="row mb-5">
         <div class="col-xl-12 col-md-12 mb-12">
-            <button class="btn btn-dark btn-icon-split mr-4">
+            <a class="btn btn-dark btn-icon-split mr-4" href="{{ url_for('product.add_product') }}">
                 <span class="icon text-white-50">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
                 <span class="text">Add Purchase</span>
-            </button>
-
-            <button class="btn btn-warning btn-icon-split mr-4">
-                <span class="icon text-white-50">
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                </span>
-                <span class="text">Edit</span>
-            </button>
-
-            <button class="btn btn-danger btn-icon-split mr-4">
-                <span class="icon text-white-50">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </span>
-                <span class="text">Delete</span>
-            </button>
+            </a>
         </div>
     </div>
 
@@ -50,6 +36,7 @@
                             <th>Product Type</th>
                             <th>Price</th>
                             <th>Stock</th>
+                            <th>Setting</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +47,13 @@
                             <td>{{ product['tipe_barang'] }}</td>
                             <td>{{ product['harga'] }}</td>
                             <td>{{ product['stock'] }}</td>
+                            <td>
+                                <a class="btn btn-warning btn-icon-split mr-4" href="{{ url_for('product.edit_product', id=product['id_barang']) }}">
+                                    <span class="text">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
