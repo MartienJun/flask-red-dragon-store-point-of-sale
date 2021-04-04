@@ -23,3 +23,12 @@ def list_user():
     return render_template('user/list_user.html', users=users)
 
 
+def get_user(id, check_author=True):
+    users = get_db().execute(
+        'SELECT * FROM user'
+        ' WHERE id = ?',(id,)
+    ).fetchone()
+
+    return users
+
+
