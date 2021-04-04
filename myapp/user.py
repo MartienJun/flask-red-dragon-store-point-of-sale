@@ -69,3 +69,39 @@ def add_user():
     return render_template('user/add_user.html')
 
 
+@bp.route('/<int:id>/edit_user', methods=('GET', 'POST'))
+@login_required
+def edit_user(id):
+    users = get_user(id)
+
+    if request.method == 'POST':
+        nama = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        role = request.form['role']
+        error = None
+
+        if not nama:
+            error = 'Name is required.'
+        elif not email:
+            error = 'Email is required.'
+        elif not password:
+            error = 'Password is required.'
+        elif not role:
+            error = 'Role is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE user SET email = ?, password = ?, nama = ?, role = ?'
+                ' WHERE id = ?',
+                (email, password, nama, role, id)
+            )
+            db.commit()
+            return redirect(url_for('user.list_user'))
+
+    return render_template('user/edit_user.html', users=users)
+
+
